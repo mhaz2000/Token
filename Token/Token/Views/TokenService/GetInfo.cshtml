@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "GetInfo";
+}
+
+<h2>GetInfo</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <h4>User</h4>
+
+        <p style="font-size:20px;color:red;">
+            @ViewBag.Message
+        </p>
+
+        <hr />
+        <div class="form-group">
+            @Html.Label("Token")<br />
+            <div class="col-md-10">
+                <textarea class="form-control" name="Token"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="submit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+
+    @{
+        var info = ViewBag.Info;
+    }
+
+
+    @if (!(info is null))
+    {
+        foreach (var item in info)
+        {
+            <label>@item</label><br />
+        }
+    }
+</div>

@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Token Test</h1>
+    <p class="lead"></p>
+</div>
+
+<div class="row">
+
+    @*<form method="post">
+            UserName: <input type="text" name="Username"><br />
+            Password: <input type="password" name="password"><br />
+            <input type="submit" value="submit">
+        </form>
+    *@
+    <p style="font-size:20px">
+        first you need to register then use token service
+    </p>
+
+    <div class="col-md-4">
+        @Html.ActionLink("Register", "Create", "Register")
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("Get Token by inserting user info", "GetToken", "TokenService")
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("Get info by inserting token", "GetInfo", "TokenService")
+    </div>
+
+
+</div>
