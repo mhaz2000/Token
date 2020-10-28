@@ -21,13 +21,22 @@ namespace Token.TokenGeneration
         //create a token
         public static string tokenGenerate(User user)
         {
+            //set claims
+            List<Claim> claims = new List<Claim>();
+
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.UserName));
+            claims.Add(new Claim(ClaimTypes.Name, user.Name + " " + user.Fmaily));
+            claims.Add(new Claim(ClaimTypes.MobilePhone, user.Phone));
+            claims.Add(new Claim(ClaimTypes.Email, user.Email));
+            
+            
             var key = Encoding.ASCII.GetBytes
                ("YourKey-2374-OFFKDI940NG7:56753253-tyuw-5769-0921-kfirox29zoxv");
             //Generate Token for user 
             var JWToken = new JwtSecurityToken(
                 issuer: "http://localhost:44388/",
                 audience: "http://localhost:44388/",
-                claims: (IEnumerable<Claim>)GetUserClaims(user),
+                claims: claims,
                 notBefore: new DateTimeOffset(DateTime.Now).DateTime,
                 expires: new DateTimeOffset(DateTime.Now.AddDays(1)).DateTime,
                 //Using HS256 Algorithm to encrypt Token  
@@ -65,16 +74,16 @@ namespace Token.TokenGeneration
         }
 
         //User Claims
-        private static IEnumerable GetUserClaims(User user)
-        {
-            IEnumerable claims = new Claim[]
-                    {
-                    new Claim("FullName",user.Name+" "+user.Fmaily),
-                    new Claim("Phone",user.Phone),
-                    new Claim("Email",user.Email),
-                    new Claim("UserName",user.UserName),
-                    };
-            return claims;
-        }
+        //private static IEnumerable GetUserClaims(User user)
+        //{
+        //    IEnumerable claims = new Claim[]
+        //            {
+        //            new Claim("FullName",user.Name+" "+user.Fmaily),
+        //            new Claim("Phone",user.Phone),
+        //            new Claim("Email",user.Email),
+        //            new Claim("UserName",user.UserName),
+        //            };
+        //    return claims;
+        //}
     }
 }
