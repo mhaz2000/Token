@@ -46,14 +46,22 @@ namespace Token.TokenGeneration
         public static List<object> TokenToInfo(string Token)
         {
             var handler = new JwtSecurityTokenHandler();
-            var info = handler.ReadJwtToken(Token);
-
-            List<object> result=new List<object>();
-            foreach(var v in info.Payload)
+            try
             {
-                result.Add(v.Value);
+                var info = handler.ReadJwtToken(Token);
+                List<object> result = new List<object>();
+                foreach (var v in info.Payload)
+                {
+                    result.Add(v.Value);
+                }
+                return result;
             }
-            return result;
+            catch (Exception E)
+            {
+                throw E;
+            }
+
+            
         }
 
         //User Claims

@@ -55,14 +55,23 @@ namespace Token.Controllers
         [HttpPost]
         public ActionResult GetInfo(string Token)
         {
-            var Result = GenerateToken.TokenToInfo(Token);
+            try
+            {
+                var Result = GenerateToken.TokenToInfo(Token);
 
-            //checks if any result eas found or not.
-            if (Result.Count==0)
+                //checks if any result eas found or not.
+                if (Result.Count == 0)
+                    ViewBag.Message = "Token is not valid!";
+                else
+                    ViewBag.Info = Result;
+
+                
+            }
+            catch (Exception)
+            {
+                ViewBag.Info = null;
                 ViewBag.Message = "Token is not valid!";
-            else
-                ViewBag.Info = Result;
-
+            }
             return View();
         }
     }
