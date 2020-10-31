@@ -15,7 +15,7 @@ namespace Token.Controllers
     public class RegisterController : Controller
     {
         //repository for crud operations
-        private readonly IUserRepository userRepository = new UserRepository();
+        private readonly IUserRepository _userRepository = new UserRepository();
 
 
         // GET: Register/Create
@@ -33,14 +33,14 @@ namespace Token.Controllers
             if (ModelState.IsValid)
             {
 
-                bool result = userRepository.AddUser(user);
+                bool result = _userRepository.AddUser(user);
                 //checks if email, phone or email is repetitve or not
                 if (!result)
                 {
                     ViewBag.Error = "Email,Phone or UserName is repetitive!";
                     return View(user);
                 }
-                userRepository.Save();
+                _userRepository.Save();
                 return RedirectToAction("Index", "Home");
             }
 
@@ -51,7 +51,7 @@ namespace Token.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            userRepository.Dispose();
+            _userRepository.Dispose();
         }
     }
 }

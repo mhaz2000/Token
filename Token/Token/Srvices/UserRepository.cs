@@ -10,14 +10,14 @@ namespace Token.Srvices
 {
     public class UserRepository : IUserRepository
     {
-        UserDataBase db = new UserDataBase();
+        private UserDataBase _dataBase = new UserDataBase();
         public bool AddUser(User user)
         {
             //checks if user has repetitive information or not.
-            var res = db.Users.Where(p => p.UserName == user.UserName || p.Phone == user.Phone || p.Email == user.Email).FirstOrDefault();
+            var res = _dataBase.Users.Where(p => p.UserName == user.UserName || p.Phone == user.Phone || p.Email == user.Email).FirstOrDefault();
             if (res is null)
             {
-                db.Users.Add(user);
+                _dataBase.Users.Add(user);
                 return true;
             }
             else
@@ -26,25 +26,25 @@ namespace Token.Srvices
 
         public void Dispose()
         {
-            db.Dispose();
+            _dataBase.Dispose();
         }
 
         //get an user by its username
-        public User GetUserMyUserName(string username)
+        public User GetUserMyUserName(string userName)
         {
-            return db.Users.Where(p=>p.UserName== username).FirstOrDefault();
+            return _dataBase.Users.Where(p=>p.UserName== userName).FirstOrDefault();
         }
 
         //get all users
         public List<User> GetUsers()
         {
-            return db.Users.ToList();
+            return _dataBase.Users.ToList();
         }
 
         //save all changes
         public void Save()
         {
-            db.SaveChanges();
+            _dataBase.SaveChanges();
         }
     }
 }

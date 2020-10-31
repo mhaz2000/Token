@@ -12,7 +12,7 @@ namespace Token.Controllers
     public class TokenServiceController : Controller
     {
         //repository for crud operation
-        private readonly IUserRepository userRepository = new UserRepository();
+        private readonly IUserRepository _userRepository = new UserRepository();
 
         // GET: TokenService
         public ActionResult GetToken()
@@ -24,21 +24,21 @@ namespace Token.Controllers
         [HttpPost]
         public ActionResult GetToken([Bind(Include = "Username,Password")] UserDto user)
         {
-            User Res = null;
+            User result = null;
             //checks if username is empty
-            if (!string.IsNullOrWhiteSpace(user.Username))
-                Res = userRepository.GetUserMyUserName(user.Username);
+            if (!string.IsNullOrWhiteSpace(user.UserName))
+                result = _userRepository.GetUserMyUserName(user.UserName);
 
             //checks if any user was found or not.
-            if (Res is null)
+            if (result is null)
             {
                 ViewBag.Message = "Not Exist!";
                 return View(user);
             }
 
             //checks user password
-            if (Res.Password == user.Password)
-                ViewBag.Token = GenerateToken.tokenGenerate(Res);
+            if (result.Password == user.PassWord)
+                ViewBag.Token = GenerateToken.TokenGenerate(result);
             else
                 ViewBag.Message = "Wrong Password!";
 
@@ -53,17 +53,17 @@ namespace Token.Controllers
 
         //show user information by a given token
         [HttpPost]
-        public ActionResult GetInfo(string Token)
+        public ActionResult GetInfo(string token)
         {
             try
             {
-                var Result = GenerateToken.TokenToInfo(Token);
+                var result = GenerateToken.TokenToInfo(token);
 
                 //checks if any result eas found or not.
-                if (Result.Count == 0)
+                if (result.Count == 0)
                     ViewBag.Message = "Token is not valid!";
                 else
-                    ViewBag.Info = Result;
+                    ViewBag.Info = result;
 
                 
             }

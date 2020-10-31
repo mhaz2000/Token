@@ -11,7 +11,7 @@ namespace Token.Srvices
     public interface IUserRepository:IDisposable
     {
         List<User> GetUsers();
-        User GetUserMyUserName(string username);
+        User GetUserMyUserName(string userName);
         bool AddUser(User user);
         void Save();
     }

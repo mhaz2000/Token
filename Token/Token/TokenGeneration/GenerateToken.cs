@@ -16,10 +16,10 @@ namespace Token.TokenGeneration
     public class GenerateToken
     {
 
-        private static string Secret = "XCAP05H6LoKvbRRa/QkqLNMI7cOHguaRyHzyg7n5qEkGjQmtBhz4SzYh4Fqwjyi3KJHlSXKPwVu2+bXr6CtpgQ==";
+        private static string _secret = "XCAP05H6LoKvbRRa/QkqLNMI7cOHguaRyHzyg7n5qEkGjQmtBhz4SzYh4Fqwjyi3KJHlSXKPwVu2+bXr6CtpgQ==";
 
         //create a token
-        public static string tokenGenerate(User user)
+        public static string TokenGenerate(User user)
         {
             //set claims
             List<Claim> claims = new List<Claim>();
@@ -52,12 +52,12 @@ namespace Token.TokenGeneration
         }
 
         //retrieve user information by token
-        public static List<object> TokenToInfo(string Token)
+        public static List<object> TokenToInfo(string token)
         {
             var handler = new JwtSecurityTokenHandler();
             try
             {
-                var info = handler.ReadJwtToken(Token);
+                var info = handler.ReadJwtToken(token);
                 List<object> result = new List<object>();
                 foreach (var v in info.Payload)
                 {
